@@ -1,1 +1,2 @@
-# CompGame2
+# Hangman Game
+
