@@ -2,6 +2,8 @@ class TortureHangingMan {
   Words wordManager;
   Man character;
   ArrayList<Weapons> activeWeapons;
+  
+  PImage startScreen;
 
   String secretWord;
   String displayWord;
@@ -16,6 +18,7 @@ class TortureHangingMan {
     activeWeapons = new ArrayList<Weapons>();
     resetGame();
     state = 0;
+    startScreen = loadImage("IntroScrnTTHM.png");
   }
 
   void resetGame() {
@@ -59,15 +62,11 @@ class TortureHangingMan {
   void drawStartScreen() {
     //image will be put in later
     textAlign(CENTER);
-    fill(0);
+    startScreen.resize(800,600);
+    background(startScreen);
     textSize(50);
-    text("TORTURE HANGMAN", width/2, height/2 - 40);
     textSize(20);
-    text("Guess correctly to dismantle the man.", width/2, height/2 + 20);
-    text("(Hint, currently all words are just doki doki literature club characters)", width/2, height/2 + 40);
-    text("Also the reset does work, I just only have five words so yknow it may take a bit to get a new one.", width/2, height/2 + 150);
     fill(150, 0, 0);
-    text("PRESS SPACE TO BEGIN", width/2, height/2 + 80);
   }
 
   void drawEndScreen() {
