@@ -2,12 +2,12 @@ class TortureHangingMan {
   Words wordManager;
   Man character;
   ArrayList<Weapons> activeWeapons;
-  
+
   String secretWord;
   String displayWord;
   String guessedLetters = "";
   int mistakes = 0;
-  int state = 0; 
+  int state = 0;
   boolean won = false;
 
   TortureHangingMan() {
@@ -15,7 +15,7 @@ class TortureHangingMan {
     character = new Man(width/2, height/2 + 50);
     activeWeapons = new ArrayList<Weapons>();
     resetGame();
-    state = 0; 
+    state = 0;
   }
 
   void resetGame() {
@@ -26,14 +26,14 @@ class TortureHangingMan {
     guessedLetters = "";
     activeWeapons.clear();
     character.reset();
-    state = 1; 
+    state = 1;
     won = false;
   }
 
   void processGuess(char letter) {
     if (state != 1 || guessedLetters.indexOf(letter) != -1) return;
     guessedLetters += letter;
-    
+
     if (secretWord.indexOf(letter) != -1) {
       activeWeapons.add(new Weapons(character.getNextLimbPos()));
       char[] temp = displayWord.toCharArray();
@@ -48,22 +48,24 @@ class TortureHangingMan {
         won = false;
       }
     }
-    
+
     if (displayWord.equals(secretWord)) {
       state = 2;
       won = true;
     }
   }
 
-  // --- SCREEN DRAWING METHODS ---
 
   void drawStartScreen() {
+    //image will be put in later
     textAlign(CENTER);
     fill(0);
     textSize(50);
     text("TORTURE HANGMAN", width/2, height/2 - 40);
     textSize(20);
     text("Guess correctly to dismantle the man.", width/2, height/2 + 20);
+    text("(Hint, currently all words are just doki doki literature club characters)", width/2, height/2 + 40);
+    text("Also the reset does work, I just only have five words so yknow it may take a bit to get a new one.", width/2, height/2 + 150);
     fill(150, 0, 0);
     text("PRESS SPACE TO BEGIN", width/2, height/2 + 80);
   }
@@ -74,10 +76,10 @@ class TortureHangingMan {
     fill(0);
     textSize(60);
     text(won ? "VICTORY" : "DEFEAT", width/2, height/2 - 50);
-    
+
     textSize(25);
     text("The word was: " + secretWord.toUpperCase(), width/2, height/2 + 20);
-    
+
     textSize(18);
     fill(50);
     text("Press 'R' to Return to Start", width/2, height/2 + 100);
@@ -97,7 +99,7 @@ class TortureHangingMan {
   void runDisplay() {
     character.display();
     for (Weapons w : activeWeapons) w.display();
-    
+
     fill(0);
     textAlign(CENTER);
     textSize(40);
