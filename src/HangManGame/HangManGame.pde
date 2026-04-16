@@ -33,6 +33,6 @@ void keyPressed() {
     }
   } 
   else if (game.state == 2) {
-    if (key == 'r' || key == 'R') game.resetGame(); // Press R to Reset
+    if (key == 'r' || key == 'R') game.resetGame();
   }
 }
