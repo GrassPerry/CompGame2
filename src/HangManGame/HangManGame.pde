@@ -8,16 +8,16 @@ void setup() {
 void draw() {
   background(240);
   
-  // State Machine logic
+
   switch(game.state) {
-    case 0: // START SCREEN
+    case 0: 
       game.drawStartScreen();
       break;
-    case 1: // PLAYING
+    case 1: 
       game.runUpdate();
       game.runDisplay();
       break;
-    case 2: // END SCREEN
+    case 2:
       game.drawEndScreen();
       break;
   }
@@ -25,7 +25,7 @@ void draw() {
 
 void keyPressed() {
   if (game.state == 0) {
-    if (key == ' ') game.state = 1; // Press Space to Start
+    if (key == ' ') game.state = 1; 
   } 
   else if (game.state == 1) {
     if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z')) {
