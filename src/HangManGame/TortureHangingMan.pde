@@ -7,7 +7,7 @@ class TortureHangingMan {
   String displayWord;
   String guessedLetters = "";
   int mistakes = 0;
-  int state = 0; // 0: Start, 1: Play, 2: End
+  int state = 0; 
   boolean won = false;
 
   TortureHangingMan() {
@@ -15,7 +15,7 @@ class TortureHangingMan {
     character = new Man(width/2, height/2 + 50);
     activeWeapons = new ArrayList<Weapons>();
     resetGame();
-    state = 0; // Ensure we start at the start screen
+    state = 0; 
   }
 
   void resetGame() {
@@ -26,7 +26,7 @@ class TortureHangingMan {
     guessedLetters = "";
     activeWeapons.clear();
     character.reset();
-    state = 1; // Go straight to play when resetting
+    state = 1; 
     won = false;
   }
 
