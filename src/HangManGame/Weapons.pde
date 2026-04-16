@@ -1,5 +1,10 @@
 class Weapons {
   PVector pos, target;
+  PImage saw;
+  
+  void setup() {
+    saw = loadImage("Untitled7.png");
+  }
   Weapons(PVector t) {
     pos = new PVector(-50, random(height));
     target = t;
@@ -15,6 +20,8 @@ class Weapons {
   }
   void display() {
     fill(255, 0, 0);
+    //same with the saw as the body part, it just nullpointers but I'll figure it out
+    //image(saw, pos.x, pos.y, 10, 10);
     rect(pos.x, pos.y, 10, 10);
   }
 }
