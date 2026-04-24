@@ -60,7 +60,6 @@ class TortureHangingMan {
 
 
   void drawStartScreen() {
-    //image will be put in later
     textAlign(CENTER);
     startScreen.resize(800,600);
     background(startScreen);
