@@ -2,8 +2,7 @@ class TortureHangingMan {
   Words wordManager;
   Man character;
   ArrayList<Weapons> activeWeapons;
-  
-  PImage startScreen;
+  PImage startScreen, sawImg;
 
   String secretWord;
   String displayWord;
@@ -14,11 +13,12 @@ class TortureHangingMan {
 
   TortureHangingMan() {
     wordManager = new Words();
-    character = new Man(width/2, height/2 + 50);
+    character = new Man(width/2, height/2);
     activeWeapons = new ArrayList<Weapons>();
+    startScreen = loadImage("IntroScrnTTHM.png");
+    sawImg = loadImage("Untitled7.png");
     resetGame();
     state = 0;
-    startScreen = loadImage("IntroScrnTTHM.png");
   }
 
   void resetGame() {
@@ -29,7 +29,6 @@ class TortureHangingMan {
     guessedLetters = "";
     activeWeapons.clear();
     character.reset();
-    state = 1;
     won = false;
   }
 
@@ -38,7 +37,9 @@ class TortureHangingMan {
     guessedLetters += letter;
 
     if (secretWord.indexOf(letter) != -1) {
-      activeWeapons.add(new Weapons(character.getNextLimbPos()));
+
+      activeWeapons.add(new Weapons(character.getNextLimbPos(), sawImg));
+
       char[] temp = displayWord.toCharArray();
       for (int i = 0; i < secretWord.length(); i++) {
         if (secretWord.charAt(i) == letter) temp[i] = letter;
@@ -58,35 +59,34 @@ class TortureHangingMan {
     }
   }
 
-
   void drawStartScreen() {
+    if (startScreen != null) {
+      imageMode(CORNER);
+      image(startScreen, 0, 0, width, height);
+    }
     textAlign(CENTER);
-    startScreen.resize(800,600);
-    background(startScreen);
-    textSize(50);
+    fill(255);
     textSize(20);
-    fill(150, 0, 0);
+    text("PRESS SPACE TO START", width/2, height - 50);
   }
 
   void drawEndScreen() {
-    background(won ? color(200, 255, 200) : color(255, 200, 200));
+    background(won ? color(50, 100, 50) : color(100, 50, 50));
     textAlign(CENTER);
-    fill(0);
+    fill(255);
     textSize(60);
     text(won ? "VICTORY" : "DEFEAT", width/2, height/2 - 50);
-
     textSize(25);
     text("The word was: " + secretWord.toUpperCase(), width/2, height/2 + 20);
-
     textSize(18);
-    fill(50);
-    text("Press 'R' to Return to Start", width/2, height/2 + 100);
+    text("Press 'R' to Restart", width/2, height/2 + 100);
   }
 
   void runUpdate() {
     for (int i = activeWeapons.size()-1; i >= 0; i--) {
       Weapons w = activeWeapons.get(i);
       w.move();
+
       if (w.reachedTarget()) {
         character.removeLimb();
         activeWeapons.remove(i);
