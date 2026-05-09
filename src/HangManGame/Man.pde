@@ -4,55 +4,63 @@ class Man {
   int limbsRemoved = 0;
   PImage head, armL, armR, body, legL, legR;
 
-  void setup() {
-    head = loadImage("Untitled1.png");
-    armL = loadImage("Untitled5.png");
-    armR = loadImage("Untitled6.png");
-    body = loadImage("Untitled4.png");
-    legL = loadImage("Untitled3.png");
-    legR = loadImage("Untitled2.png");
-  }
 
   Man(float x, float y) {
     this.x = x;
     this.y = y;
   }
+
+  void setup() {
+    head = loadImage("TTHMHead.gif");
+    body = loadImage("TTHMBody.gif");
+    armL = loadImage("TTHMArmL.gif");
+    armR = loadImage("TTHMArmR.gif");
+    legL = loadImage("TTHMLegL.gif");
+    legR = loadImage("TTHMLegR.gif");
+  }
+
   void reset() {
     for (int i = 0; i < 6; i++) limbsActive[i] = true;
     limbsRemoved = 0;
   }
+
   void removeLimb() {
     if (limbsRemoved < 6) {
       limbsActive[limbsRemoved] = false;
       limbsRemoved++;
     }
   }
-  PVector getNextLimbPos() {
-    if (limbsRemoved == 0) return new PVector(x, y-50);
-    if (limbsRemoved == 1) return new PVector(x, y);
-    if (limbsRemoved == 2) return new PVector(x-30, y);
-    if (limbsRemoved == 3) return new PVector(x+30, y);
-    if (limbsRemoved == 4) return new PVector(x-20, y+50);
-    return new PVector(x+20, y+50);
-  }
+
   void display() {
-    //broke a bit while I was putting in the image
-    //Body parts
-    stroke(0);
-    strokeWeight(3);
-    noFill();
-    //all limbs with actual images not just line and ellipses turned off while I figure this out
-    //if (limbsActive[0]) image(head, x, y - 50, 40, 40);
-    //if (limbsActive[1]) image(armL, x, y - 30, x, y + 30);
-    //if (limbsActive[2]) image(armR, x, y - 10, x - 30, y + 10);
-    //if (limbsActive[3]) image(body, x, y - 10, x + 30, y + 10);
-    //if (limbsActive[4]) image(legL, x, y + 30, x - 20, y + 70);
-    //if (limbsActive[5]) image(legR, x, y + 30, x + 20, y + 70);
-    if (limbsActive[0]) ellipse(x, y - 50, 40, 40);
-    if (limbsActive[1]) line(x, y - 30, x, y + 30);
-    if (limbsActive[2]) line(x, y - 10, x - 30, y + 10);
-    if (limbsActive[3]) line(x, y - 10, x + 30, y + 10);
-    if (limbsActive[4]) line(x, y + 30, x - 20, y + 70);
-    if (limbsActive[5]) line(x, y + 30, x + 20, y + 70);
+
+    imageMode(CENTER);
+
+    // Head
+    if (limbsActive[0]) image(head, x, y-150, 100, 100);
+    
+    // Body (The torso)
+    if (limbsActive[1]) image(body, x, y-50, 80, 120);
+    
+    // Left Arm
+    if (limbsActive[2]) image(armL, x - 55, y - 50, 100, 200);
+    
+    // Right Arm
+    if (limbsActive[3]) image(armR, x + 55, y - 50, 100, 200);
+    
+    // Left Leg
+    if (limbsActive[4]) image(legL, x - 15, y + 85, 70, 200);
+    
+    // Right Leg
+    if (limbsActive[5]) image(legR, x + 15, y + 85, 70, 200);
   }
+  PVector getNextLimbPos() {
+
+    if (limbsRemoved == 0) return new PVector(x, y - 50);      // Head
+    if (limbsRemoved == 1) return new PVector(x, y);           // Body
+    if (limbsRemoved == 2) return new PVector(x - 25, y - 10); // ArmL
+    if (limbsRemoved == 3) return new PVector(x + 25, y - 10); // ArmR
+    if (limbsRemoved == 4) return new PVector(x - 15, y + 55); // LegL
+    return new PVector(x + 15, y + 55);                        // LegR
+  }
+  
 }
